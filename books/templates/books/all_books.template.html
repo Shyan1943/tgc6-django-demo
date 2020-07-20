@@ -13,6 +13,7 @@
     <ul>
         {% for b in books %}
         <li>{{b.title}}</li>
+        <a class="btn btn-primary btn-sm" href="{% url 'update_book_route' book_id=b.id %}">Edit</a>
         {% endfor %}
     </ul>
 </body>

@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponse, redirect, reverse
+from django.shortcuts import render, HttpResponse, redirect, reverse, get_object_or_404
 from .models import Book, Author
 from .forms import BookForm, AuthorForm
 
@@ -31,6 +31,19 @@ def create_book(request):
         })
 
 
+def edit_book(request, book_id):
+    book = get_object_or_404(Book, pk=book_id)
+
+    if request.method == "POST":
+        form = BookForm(request.POST, instance=book)
+        form.save()
+        return redirect(reverse(show_books))
+    else:
+        form = BookForm(instance=book)
+        return render(request, "books/edit_book.template.html", {
+            "form": form
+        })
+
 def show_authors(request):
     all_authors = Author.objects.all()
     return render(request, "books/all_authors.template.html",{
@@ -48,4 +61,3 @@ def create_author(request):
         return render(request, "books/create_author.template.html", {
             "form": form
         })
-    

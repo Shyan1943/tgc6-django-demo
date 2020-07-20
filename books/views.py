@@ -44,6 +44,19 @@ def edit_book(request, book_id):
             "form": form
         })
 
+
+def delete_book(request, book_id):
+    book = get_object_or_404(Book, pk=book_id)
+
+    if request.method == "POST":
+        book.delete()
+        return HttpResponse("deleted")
+    else:
+        return render(request, "books/delete_book.template.html", {
+            "book": book
+        })
+
+
 def show_authors(request):
     all_authors = Author.objects.all()
     return render(request, "books/all_authors.template.html",{

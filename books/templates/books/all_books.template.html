@@ -12,8 +12,10 @@
     <h1>All the Books</h1>
     <ul>
         {% for b in books %}
-        <li>{{b.title}}</li>
-        <a class="btn btn-primary btn-sm" href="{% url 'update_book_route' book_id=b.id %}">Edit</a>
+        <li>{{b.title}}
+            <a class="btn btn-primary btn-sm" href="{% url 'update_book_route' book_id=b.id %}">Edit</a>
+            <a class="btn btn-danger btn-sm" href="{% url 'delete_book_route' book_id=b.id %}">Delete</a>
+        </li>
         {% endfor %}
     </ul>
 </body>

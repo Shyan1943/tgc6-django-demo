@@ -88,3 +88,13 @@ def edit_author(request, author_id):
         return render(request, "books/edit_author.template.html", {
             "form": form
         })
+
+def delete_author(request, author_id):
+    author = get_object_or_404(Author, pk=author_id)
+    if request.method == "POST":
+        author.delete()
+        return redirect(reverse(show_authors))
+    else:
+        return render(request, "books/delete_author.template.html", {
+            "author": author
+        })

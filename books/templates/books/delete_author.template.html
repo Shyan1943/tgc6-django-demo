@@ -4,14 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Confirm delete Book?</title>
+    <title>Confirm delete Author?</title>
 </head>
 <body>
-    <p>Are you sure to delete {{book.title}}?</p>
+    <p>Are you sure to delete {{author.first_name}} {{author.last_name}}?</p>
     <form method="POST">
         {% csrf_token %}
-          <input type="Submit" value="Yes"/>
-        <a href="{% url 'all_books_route' %}">Cancel</a>
+        <input type="submit" class="btn btn-danger" value="Yes"/>
+        <a href="{% url 'all_authors_route' %}" class="btn btn-primary">Cancel</a>
     </form>
+
 </body>
 </html>

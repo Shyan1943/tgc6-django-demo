@@ -61,3 +61,17 @@ def create_author(request):
         return render(request, "books/create_author.template.html", {
             "form": form
         })
+
+
+def edit_author(request, author_id):
+    author = get_object_or_404(Author, pk=author_id)
+    if request.method == "POST":
+        form = AuthorForm(request.POST, instance=author)
+        form.save()
+        return redirect(reverse(show_authors))
+
+    else:
+        form = AuthorForm(instance=author)
+        return render(request, "books/edit_author.template.html", {
+            "form": form
+        })

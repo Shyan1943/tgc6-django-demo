@@ -1,17 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Confirm delete Book?</title>
-</head>
-<body>
-    <p>Are you sure to delete {{book.title}}?</p>
+{% extends 'base.template.html' %}
+{%block content%}
     <form method="POST">
+    <p>Are you sure to delete {{book.title}}?</p>
         {% csrf_token %}
-          <input type="Submit" value="Yes"/>
+        <input type="Submit" value="Yes"/>
         <a href="{% url 'all_books_route' %}">Cancel</a>
     </form>
-</body>
-</html>
+{% endblock %}

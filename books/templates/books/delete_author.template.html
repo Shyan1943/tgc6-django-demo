@@ -1,18 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Confirm delete Author?</title>
-</head>
-<body>
+{% extends 'base.template.html' %}
+{%block content%}
     <p>Are you sure to delete {{author.first_name}} {{author.last_name}}?</p>
     <form method="POST">
         {% csrf_token %}
         <input type="submit" class="btn btn-danger" value="Yes"/>
         <a href="{% url 'all_authors_route' %}" class="btn btn-primary">Cancel</a>
     </form>
-
-</body>
-</html>
+{% endblock %}

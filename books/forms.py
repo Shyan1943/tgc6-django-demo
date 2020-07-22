@@ -5,7 +5,7 @@ from .models import Book, Author
 class BookForm(forms.ModelForm):
     class Meta:
         model = Book
-        fields = ('title', 'desc', 'ISBN')
+        fields = ('title', 'desc', 'ISBN', 'genre', 'category', 'author', 'tag')
 
 
 class AuthorForm(forms.ModelForm):

@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import Book, Author
 from .forms import BookForm, AuthorForm
+from review.forms import ReviewForm
 
 # Create your views here.
 
@@ -23,6 +24,15 @@ def show_books(request):
     })
 
 
+def view_book(request, book_id):
+    book = get_object_or_404(Book, pk=book_id)
+    review_form = ReviewForm()
+    return render(request, 'books/details.template.html', {
+        "book": book,
+        "form": review_form
+    })
+
+
 @login_required
 def create_book(request):
     if request.method == "POST":
@@ -36,6 +46,7 @@ def create_book(request):
         return render(request, "books/create_book.template.html", {
             "form": form
         })
+
 
 @login_required
 def edit_book(request, book_id):
@@ -51,6 +62,7 @@ def edit_book(request, book_id):
         return render(request, "books/edit_book.template.html", {
             "form": form
         })
+
 
 @login_required
 def delete_book(request, book_id):
@@ -72,6 +84,7 @@ def show_authors(request):
         "authors": all_authors
     })
 
+
 @login_required
 def create_author(request):
     if request.method == "POST":
@@ -84,6 +97,7 @@ def create_author(request):
         return render(request, "books/create_author.template.html", {
             "form": form
         })
+
 
 @login_required
 def edit_author(request, author_id):
@@ -99,6 +113,7 @@ def edit_author(request, author_id):
         return render(request, "books/edit_author.template.html", {
             "form": form
         })
+
 
 @login_required
 def delete_author(request, author_id):

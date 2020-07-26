@@ -1,10 +1,14 @@
 {% extends 'base.template.html' %}
 {%load static %}
 
-{%block content%}
-    {% if request.user.is_authenticated  %}
-    <p>Welcome {{request.user}}</p>
-    {% else %}
-    <p>Please <a href="accounts/login">Login</a></p>
-    {%endif%}
-{% endblock %}
+{%block title%}All Books{%endblock%}
+
+
+{%block content %}
+    {% if request.user.is_authenticated %}
+    <h1>Welcome, {{request.user}}</h1>
+    {% endif %}
+    <h1>Welcome to Book Reviews</h1>
+    <p>Hi {{first_name}} {{last_name}}</p>
+    <img src="{% static 'dune-cover.jpg' %}"/>
+{%endblock%}

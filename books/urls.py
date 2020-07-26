@@ -11,6 +11,9 @@ urlpatterns = [
     path('delete/<book_id>', books.views.delete_book, name='delete_book_route'),
     path('authors', books.views.show_authors, name="all_authors_route"),
     path('authors/create', books.views.create_author),
-    path('authors/<author_id>', books.views.edit_author, name="update_author_route"),
-    path('authors/delete/<author_id>', books.views.delete_author, name="delete_author_route"),
+    path('authors/<author_id>', books.views.edit_author,
+         name="update_author_route"),
+    path('authors/delete/<author_id>',
+         books.views.delete_author, name="delete_author_route"),
+    path('details/<book_id>', books.views.view_book, name="view_book_details")
 ]

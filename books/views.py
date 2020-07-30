@@ -1,26 +1,54 @@
 from django.shortcuts import render, HttpResponse, redirect, reverse, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from .models import Book, Author
-from .forms import BookForm, AuthorForm
-from review.forms import ReviewForm
+from .forms import BookForm, AuthorForm, SearchForm
 
 # Create your views here.
 
 
 def index(request):
-    fname = "Paul"
-    lname = "Chor"
-    return render(request, "books/index.template.html", {
-        "first_name": fname,
-        "last_name": lname
-    })
+    form = SearchForm(request.GET)
+
+    if request.GET:
+        query = ~Q(pk__in=[])
+
+        # if a title is specified, add it to the query
+        if 'title' in request.GET and request.GET['title']:
+            title = request.GET['title']
+            query = query & Q(title__icontains=title)
+
+        if 'genre' in request.GET and request.GET['genre']:
+            genre_id = request.GET['genre']
+            query = query & Q(genre=genre_id)
+
+        if 'min_page_count' in request.GET and request.GET['min_page_count']:
+            min_page_count = request.GET['min_page_count']
+            page_query = Q(pageCount__gte=min_page_count)
+            query = query & page_query
+
+        books = Book.objects.all()
+
+        books = books.filter(query)
+
+        return render(request, 'books/index.template.html', {
+            'form': form,
+            'books': books
+        })
+    else:
+        books = Book.objects.all()
+        return render(request, 'books/index.template.html', {
+            'form': form,
+            'books': books
+        })
 
 
 def show_books(request):
+    # SELECT * FROM Books
     all_books = Book.objects.all()
-    return render(request, "books/all_books.template.html", {
-        "books": all_books
+    return render(request, 'books/all_books.template.html', {
+        'books': all_books
     })
 
 
